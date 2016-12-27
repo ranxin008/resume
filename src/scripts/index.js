@@ -1,7 +1,7 @@
 var $ = require('./common/libs/zepto-modules/zepto');
 require('./common/libs/zepto-modules/event');
 require('./common/libs/zepto-modules/ajax');
-
+require('./common/libs/zepto-modules/touch');
 var Swiper = require('./common/libs/swiper/swiper.min.js');
 var swiperAni = require('./common/libs/swiper/swiper.animate1.0.2.min.js');
 var IScroll = require('./common/libs/iscroll/iscroll.js');
@@ -52,7 +52,7 @@ $.post('http://localhost:8000/project',function(data){
 		str="";	
 		str+='<ul>';
 		for (var i=0;i<len;i++) {
-			str+='<li>'+data[i].description+'</li>';
+			str+='<li><h4>'+data[i].name+'</h4><p><img src="'+data[i].images+'"></p><p>'+data[i].description+'</p><p>'+data[i].detail+'</p></li>';
 		}
 		str+='</ul>';
 		
@@ -84,3 +84,20 @@ $("#me_slide").on('click',function () {
 	var str='<ul><li>电话：15557313260</li><li>qq:137473574</li></ul>';
 	$("#scroller").html($(str));
 });
+$("#footer").find('li').on('click',function () {
+	$(this).css('color','mediumvioletred').siblings('li').css('color','');
+	$("#title").html($(this).find('span').html());
+})
+var isPlay=true;
+$("#music").on('click',function () {
+	var mp3=document.getElementById("mp3");
+	if (isPlay) {
+		$(this).attr('class','icon-play');
+		mp3.pause();
+		isPlay=false;
+	} else{
+		$(this).attr('class','icon-pause');
+		mp3.play();
+		isPlay=true;
+	}
+})
